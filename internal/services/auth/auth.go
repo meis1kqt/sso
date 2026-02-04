@@ -23,10 +23,10 @@ type Storage interface {
 	App(ctx context.Context, appID int64) (models.App, error)
 }
 
-func New(log *slog.Logger, storage *Storage, tokenTTL time.Duration) *Auth {
+func New(log *slog.Logger, storage Storage, tokenTTL time.Duration) *Auth {
 	return &Auth{
 		log:      log,
-		storage:  *storage,
+		storage:  storage,
 		tokenTTL: tokenTTL,
 	}
 }

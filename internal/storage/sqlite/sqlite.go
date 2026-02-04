@@ -85,7 +85,23 @@ func (s *Storage) IsAdmin(ctx context.Context, userID int64)(bool, error) {
 	}
 
 	return isAdmin, nil
+}
 
+func (s *Storage) App(ctx context.Context, id int64) (models.App, error) {
+	stmt, err := s.db.Prepare("SELECT * from apps where id = ?")
+	if err != nil {
+		return models.App{}, err
+	}
 
+	row := stmt.QueryRowContext(ctx, id)
 
+	var app models.App
+
+	err = row.Scan(&app.ID, &app.Name, &app.Secret)
+
+	if err != nil {
+		return models.App{}, err
+	}
+
+	return app, nil
 }
