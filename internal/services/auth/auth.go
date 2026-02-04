@@ -83,7 +83,6 @@ func (a *Auth) RegisterNewUser(ctx context.Context, email string, password strin
 	slog.Info("user registered")
 
 	return id, nil
-
 }
 
 func (a *Auth) IsAdmin(ctx context.Context, userID int64) (bool, error) {
